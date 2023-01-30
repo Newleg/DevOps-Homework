@@ -10,5 +10,24 @@ echo -e "\nChoose what you want to know:\n
 
 read -p "Enter your choice [1-6] : " ans
 if (( $ans == 1 )); then
-	cat apache_logs.txt | awk '{print "IP requests "$2, $1}' | sort -n | uniq -c | sort -nr
+	cat apache_logs.txt | awk '{print "IP request "$2, $1}' | sort -n | uniq -c | sort -nr | head -1
+	
+elif (( $ans == 2 )); then
+	#cat apache_logs.txt | awk '{print $11, $15}' | sort | uniq -c | sort -nr
+	cat apache_logs.txt | awk '{print $11}' | awk '/"http:/' | sort | uniq -c | sort -rn | head -1
+
+elif (( $ans == 3 )); then
+        cat apache_logs.txt | awk '{print "IP requests "$2, $1}' | sort -n | uniq -c | sort -nr
+
+elif (( $ans == 4 )); then
+        cat apache_logs.txt | awk '/error404/' | awk '{print $1, $15}' | sort | uniq -c | sort -rn
+
+elif (( $ans == 5 )); then
+        cat apache_logs.txt | awk '/"http:/' | awk '{print $4, $11}' | sort | uniq -c | sort -rn
+
+elif (( $ans == 6 )); then
+        cat apache_logs.txt | awk '/bot/' | awk '{print $1, $14, $15}' | sort | uniq -c | sort -rn
+
+else
+	echo "please choose wisely"
 fi
