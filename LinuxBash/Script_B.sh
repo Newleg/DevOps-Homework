@@ -26,7 +26,7 @@ elif (( $ans == 5 )); then
         cat apache_logs.txt | awk '/"http:/' | awk '{print $4, $11}' | sort | uniq -c | sort -rn
 
 elif (( $ans == 6 )); then
-        cat apache_logs.txt | awk '/bot/' | awk '{print $1, $14, $15}' | sort | uniq -c | sort -rn
+        cat apache_logs.txt | awk '/bot/' | awk '{print $1, $14, $15}' | sort | uniq -c | sort -rn | ack --passthru 'bot'
 
 else
 	echo "please choose wisely"
